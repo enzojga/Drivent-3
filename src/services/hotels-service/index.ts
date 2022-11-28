@@ -7,7 +7,7 @@ async function listHotels(id: number) {
   const ticket = await ticketService.getTicketByUserId(id);
     
   if(!ticket.id) {
-    throw notFoundError();
+    throw unauthorizedError();
   }
     
   if(ticket.TicketType.isRemote || !ticket.TicketType.includesHotel || ticket.status === TicketStatus.RESERVED) {
@@ -19,6 +19,11 @@ async function listHotels(id: number) {
 
 async function listRoomsByHotelId(id: number) {
   const rooms = await hotelsRepository.findHotelRooms(id);
+
+  if(!rooms.id) {
+    throw notFoundError();
+  }
+
   return rooms;
 }
 

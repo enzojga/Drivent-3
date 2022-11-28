@@ -8,11 +8,7 @@ export async function getHotels(req: AuthenticatedRequest, res: Response) {
     const hotels = await hotelService.listHotels(req.userId);
     res.status(httpStatus.OK).send(hotels);
   } catch (err) {
-    console.log(err);
-    if(err.name === "UnauthorizedError") {
-      return res.sendStatus(httpStatus.FORBIDDEN);
-    }
-    res.sendStatus(httpStatus.NOT_FOUND);
+    return res.sendStatus(httpStatus.UNAUTHORIZED);
   }
 }
 
