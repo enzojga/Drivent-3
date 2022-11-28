@@ -18,7 +18,6 @@ export async function getHotelRooms(req: AuthenticatedRequest, res: Response) {
     const rooms = await hotelService.listRoomsByHotelId(id);
     res.status(httpStatus.OK).send(rooms);
   } catch (err) {
-    console.log(err);
     if(err.name === "UnauthorizedError") {
       return res.sendStatus(httpStatus.FORBIDDEN);
     }
